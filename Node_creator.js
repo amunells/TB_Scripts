@@ -24,7 +24,7 @@ function node_creator(){
     
 
     // Makes a counter to get the number of nodes inside i
-
+    // (//////////TEST///////////)
     var count_nodes = node.getnodes(type_of_node)
 
     // The name you want to show for the node.
@@ -113,7 +113,7 @@ function node_creator(){
                 var node_inf_temp = node.dstNodeInfo(all_nodes[i])
                 
                 
-                // Should return the port and node. (Test)
+                // Should return the port and node. (///////////Test//////////)
                 
                 var node_inf = node_inf_temp.node
                 var port_inf = node_inf_temp.port
