@@ -21,12 +21,15 @@ function node_creator(){
     // Allows to change the type of node by "FADE", "COMPOSITE", "READ"... (For the read node it has to be set up the column association and the elementid thing.)
 
     var type_of_node = "FADE"
+    
 
+    // Makes a counter to get the number of nodes inside i
+
+    var count_nodes = node.getnodes(type_of_node)
 
     // The name you want to show for the node.
 
     var node_name_type = "LS_TRANSPARENCY"
-
 
     MessageLog.trace("there is " + count + " nodes selected.")
 
@@ -63,13 +66,15 @@ function node_creator(){
 
             var final_name
 
-            if (i < 1){
+            if (count_nodes < 1){
 
                 final_name = node_name_type
 
             }else{
 
-                final_name = node_name_type + "_" + i
+                final_name = node_name_type + "_" + count_nodes + 1
+                
+                final_name += 1
 
             }
 
@@ -86,6 +91,8 @@ function node_creator(){
 
             node.add(node_parent, final_name, type_of_node, coordX, new_coordY, 0)
 
+
+
             // Links the new node to the source node.
 
             var created_node = node_parent + "/" + final_name
@@ -98,24 +105,55 @@ function node_creator(){
 
             // if the node is linked, link the transparency node between the node that is linked to.
 
-            /* if (node.isLinked(all_nodes[i]) == true){
+            if (node.isLinked(all_nodes[i]) == true){
                 
             
-            // Unlinks the original link and links the new node between the two linked nodes.
+                // Unlinks the original link and links the new node between the two linked nodes.
+                
+                var node_inf_temp = node.dstNodeInfo(all_nodes[i])
+                
+                
+                // Should return the port and node. (Test)
+                
+                var node_inf = node_inf_temp.node
+                var port_inf = node_inf_temp.port
+
+
+                // Console log to follow the node and port output.
+
+                MessageLog.trace(node_inf)
+                MessageLog.trace(port_inf)
             
-            node.unlink(my_node_dest,0)
-            node.link(all_node[i], 0, transparency_node, 0)
-            node.link(transparency_node, 0, destination_node, 0)
+
+                
+
+                // in this step we will also have to check how many transparency nodes there is in the scene. maybe we can even do it after the if to be able to stablish it before the condition and use it in both.
+                
+                
+
+
+                // The statement would be like: if there is any transparency node, let i = to the number of transparency nodes.
+                
+                node.unlink(node_inf, port_inf)
+                node.link(all_node[i], 0, transparency_node, 0)
+                node.link(transparency_node, 0, destination_node, 0)
             
-            // find the node port to be able to link it in the same space.
+                // find the node port to be able to link it in the same space.
+
+                MessageLog.trace("Link found procedure")
+
             
             }else{
                 
                 
-                created_node = selection.addNodeToSelection(final_name)
-                node.link(created_node, all_nodes[i])
-                
-                }*/
+                // Links the new node to the source node.
+
+                var created_node = node_parent + "/" + final_name
+                node.link(all_nodes[i], 0, created_node, 0)
+
+                MessageLog.trace("No link found procedure.")
+            }
+
 
         }else{
 
