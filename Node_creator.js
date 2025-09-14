@@ -24,7 +24,8 @@ function node_creator(){
     
 
     // Makes a counter to get the number of nodes inside i
-    // (//////////TEST///////////)
+    // (//////////TEST///////////) (Return the path of the nodes od the type "type_of_node")
+
     var count_nodes = node.getnodes(type_of_node)
 
     // The name you want to show for the node.
@@ -105,27 +106,38 @@ function node_creator(){
 
             // if the node is linked, link the transparency node between the node that is linked to.
 
-            if (node.isLinked(all_nodes[i]) == true){
+            if (node.isLinked(all_nodes[i]) === true){
                 
             
                 // Unlinks the original link and links the new node between the two linked nodes.
                 
-                var node_inf_temp = node.dstNodeInfo(all_nodes[i])
+                var node_dst = node.dstNodeInfo(all_nodes[i])
+                var node_src = node.srcNodeInfo(all_nodes[i])
                 
                 
-                // Should return the port and node. (///////////Test//////////)
+                // Return information of the destination node. (///////////Test//////////)
                 
-                var node_inf = node_inf_temp.node
-                var port_inf = node_inf_temp.port
+                var node_dst_inf = node_dst.node
+                var port_dst_inf = node_dst.port
+
+                
+                // Return the information of the source node. (////////TEST//////////)
+
+                var node_src_inf = node_src.node
+                var port_src_inf =node_src.port
 
 
                 // Console log to follow the node and port output.
 
-                MessageLog.trace(node_inf)
-                MessageLog.trace(port_inf)
+                MessageLog.trace("Dst node path is: " + node_dst_inf)
+                MessageLog.trace("Dst node port is: " + port_dst_inf)
+                
+                MessageLog.trace("Src node path is: " + node_src_inf)
+                MessageLog.trace("Src node port is: " + port_src_inf)
+                
             
 
-                
+                var node_to_link = node_parent + "/" + final_name
 
                 // in this step we will also have to check how many transparency nodes there is in the scene. maybe we can even do it after the if to be able to stablish it before the condition and use it in both.
                 
@@ -134,11 +146,13 @@ function node_creator(){
 
                 // The statement would be like: if there is any transparency node, let i = to the number of transparency nodes.
                 
-                node.unlink(node_inf, port_inf)
-                node.link(all_node[i], 0, transparency_node, 0)
-                node.link(transparency_node, 0, destination_node, 0)
+                node.unlink(node_dst_inf, port_dst_inf)
+                node.link(node_src_inf, port_src_inf, node_to_link, 0)
+                node.link(node_to_link, 0, node_dst_inf, port_dst_inf)
             
                 // find the node port to be able to link it in the same space.
+
+                MessageLog.trace("The connection with the node is" + node.link)
 
                 MessageLog.trace("Link found procedure")
 
