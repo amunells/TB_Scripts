@@ -8,6 +8,7 @@ function createDrawingNodes()
 		"SKIN_DARK",
 		"HAIR_DARK",
 		"HAIR_SPECULAR",
+		"GUN_DARK",
 		"GUN_SPECULAR" 
 	];
 	var checkboxtable = [];
