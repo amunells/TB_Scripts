@@ -1,11 +1,10 @@
-//V.02 Of Node creator
+//V.03 Of Node creator
 
 /* The script objective is to create a automatized node creator of our choice under selected nodes of our choice.
 
-    I will set a specific part for the attribute setting.
     The node type can be changed in type_of_node. The valid entries are, "COMPOSITE", "FADE" and all the nodes that follow a drawing type node.
-    Notice that the created nodes can be created under a "COMPOSITE" node, so I recommend to errase the condition (|| node_type == "COMPOSITE")
-    in case of creating composite nodes.
+    Notice that the created nodes can be created under a "COMPOSITE" node, so the constant types_acc can be changed to the type of nodes can 
+    be selected to create the nodes.
 
     
 */
@@ -18,6 +17,8 @@ function node_creator(){
     var count = all_nodes.length
     var node_type = []
     const types_acc = ["READ", "COMPOSITE"]
+
+
     // Allows to change the type of node by "FADE", "COMPOSITE", "READ"... (For the read node it has to be set up the column association and the elementid thing.)
 
     var type_of_node = ["FADE"]
@@ -35,6 +36,8 @@ function node_creator(){
 
     MessageLog.trace("There is " + count + " nodes selected.")
 
+    
+    
     if (count === 0){
         
         MessageLog.trace("No nodes selected.")
@@ -58,17 +61,17 @@ function node_creator(){
             MessageLog.trace(node_type)
             MessageLog.trace(all_nodes[i])
             
+    
             var test = types_acc.indexOf(node_type[i])
             
             MessageLog.trace(node_type)
             
+    
             // *******************IndexOf dosen't read when there is no nodes selected. I need a way to compare the types
             // checks for each node type if it's inside the list, if it's not inside it brakes the loop.
             
             
             if (test !== -1){
-                
-                MessageLog.trace(node_type)
                 
                 
                 // Creates an undo action.
@@ -80,7 +83,7 @@ function node_creator(){
                 
                 // Creates a personalized name for the transparency nodes in case the name.
                 
-                var final_name
+                var final_name = ""
                 
                 if (count_nodes < 1){
                     
